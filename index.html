@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#091423" />
-  <link rel="icon" type="image/png" href="BuildTrace.png" />
+  <link rel="icon" type="image/png" href="BuildTrace-mark.png" />
   <meta property="og:image" content="BuildTrace.png" />
   <meta name="description" content="BUILDTRACE connects construction documents, issues, actions, decisions and evidence in one traceable workflow." />
   <meta property="og:title" content="BUILDTRACE — Connect Documents. Trace Decisions. Resolve Issues." />
@@ -134,9 +134,15 @@
     }
 
     .brand-mark {
-      width: 38px;
-      height: 38px;
+      width: 42px;
+      height: 42px;
       flex: 0 0 auto;
+    }
+
+    .brand-mark-image {
+      object-fit: contain;
+      border-radius: 8px;
+      display: block;
     }
 
     .brand span:last-child { color: var(--sand); }
@@ -235,14 +241,6 @@
     }
 
     .hero-visual { position: relative; }
-
-    .hero-brand-logo {
-      display: block;
-      width: min(320px, 72%);
-      margin: 0 auto 24px;
-      border-radius: 24px;
-      box-shadow: 0 18px 60px rgba(0,0,0,.22);
-    }
 
     .hero-orbit {
       position: absolute;
@@ -714,11 +712,7 @@
   <nav id="navbar">
     <div class="container nav-inner">
       <a class="brand" href="#top" aria-label="BUILDTRACE home">
-        <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M10 18 32 6l22 12v28L32 58 10 46Z" fill="none" stroke="#E4B388" stroke-width="4"/>
-          <path d="M18 20v25h12c8 0 13-4 13-10 0-4-2-7-6-8 3-1 5-4 5-7 0-6-5-9-12-9H18Z" fill="none" stroke="#F8F5EE" stroke-width="4" stroke-linejoin="round"/>
-          <path d="M39 18h14M46 18v28" fill="none" stroke="#4676B8" stroke-width="4" stroke-linecap="round"/>
-        </svg>
+        <img class="brand-mark brand-mark-image" src="BuildTrace-mark.png" alt="" aria-hidden="true" />
         <span>BUILD</span><span>TRACE</span>
       </a>
 
@@ -754,8 +748,7 @@
           <p class="microcopy">Built for practical project workflows. Human review remains central for contractual and high-risk decisions.</p>
         </div>
 
-        <div class="hero-visual" aria-label="BUILDTRACE brand and dashboard concept">
-          <img class="hero-brand-logo" src="BuildTrace.png" alt="BUILDTRACE logo" />
+        <div class="hero-visual" aria-label="BUILDTRACE dashboard concept">
           <div class="hero-orbit"></div>
           <div class="dashboard">
             <div class="dash-head">
