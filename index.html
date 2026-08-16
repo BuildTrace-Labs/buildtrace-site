@@ -6,11 +6,11 @@
   <meta name="theme-color" content="#091423" />
   <link rel="icon" type="image/png" href="BuildTrace-mark.png" />
   <meta property="og:image" content="BuildTrace.png" />
-  <meta name="description" content="BUILDTRACE connects construction documents, issues, actions, decisions and evidence in one traceable workflow." />
-  <meta property="og:title" content="BUILDTRACE — Connect Documents. Trace Decisions. Resolve Issues." />
-  <meta property="og:description" content="Construction document intelligence and issue traceability for project teams." />
+  <meta name="description" content="TraceConnect is a construction document intelligence and issue-traceability platform developed by BUILDTRACE." />
+  <meta property="og:title" content="TraceConnect — Connect Documents. Trace Decisions. Resolve Issues." />
+  <meta property="og:description" content="TraceConnect connects construction documents, issues, actions, decisions and evidence in one traceable workflow." />
   <meta property="og:type" content="website" />
-  <title>BUILDTRACE — Construction Document Intelligence</title>
+  <title>TraceConnect — Construction Document Intelligence | BUILDTRACE</title>
 
   <style>
     :root {
@@ -146,6 +146,33 @@
     }
 
     .brand span:last-child { color: var(--sand); }
+
+    .brand-stack {
+      position: relative;
+      padding-right: 84px;
+    }
+
+    .brand-name {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .brand-name span:last-child {
+      color: var(--sand);
+    }
+
+    .brand-product {
+      position: absolute;
+      left: 54px;
+      top: 29px;
+      color: var(--muted) !important;
+      font-size: .56rem;
+      font-weight: 750;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
 
     .nav-links {
       display: flex;
@@ -624,6 +651,7 @@
     .pilot-card .btn {
       display: flex;
       width: max-content;
+      margin-top: -12px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -686,6 +714,8 @@
     @media (max-width: 680px) {
       .container { width: min(calc(100% - 28px), var(--max)); }
       nav .brand { font-size: .88rem; }
+      .brand-stack { padding-right: 62px; }
+      .brand-product { left: 50px; top: 28px; font-size: .49rem; }
       .hero { padding-top: 64px; }
       h1 { font-size: clamp(3rem, 16vw, 4.8rem); }
       section { padding: 90px 0; }
@@ -718,13 +748,14 @@
 <body>
   <nav id="navbar">
     <div class="container nav-inner">
-      <a class="brand" href="#top" aria-label="BUILDTRACE home">
+      <a class="brand brand-stack" href="#top" aria-label="BUILDTRACE home">
         <img class="brand-mark brand-mark-image" src="BuildTrace-mark.png" alt="" aria-hidden="true" />
-        <span>BUILD</span><span>TRACE</span>
+        <span class="brand-name"><span>BUILD</span><span>TRACE</span></span>
+        <span class="brand-product">TraceConnect</span>
       </a>
 
       <div class="nav-links" id="navLinks">
-        <a href="#problem">Why BUILDTRACE</a>
+        <a href="#problem">Why TraceConnect</a>
         <a href="#workflow">How it works</a>
         <a href="#capabilities">Capabilities</a>
         <a href="#traceability">Traceability</a>
@@ -739,10 +770,10 @@
     <header class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <div class="eyebrow">Construction document intelligence</div>
-          <h1>Connect documents.<br><span class="text-gradient">Trace decisions.</span><br>Resolve issues.</h1>
+          <div class="eyebrow">TraceConnect · A BUILDTRACE product</div>
+          <h1><span class="text-gradient">TraceConnect</span><br>Connect documents.<br>Trace decisions. Resolve issues.</h1>
           <p>
-            BUILDTRACE helps construction teams organise project records, find the latest information,
+            TraceConnect helps construction teams organise project records, find the latest information,
             connect documents to issues and actions, and retrieve supporting evidence without digging
             through scattered PDFs, emails and folders.
           </p>
@@ -752,10 +783,10 @@
             <a class="btn btn-secondary" href="#workflow">See how it works</a>
           </div>
 
-          <p class="microcopy">Built for practical project workflows. Human review remains central for contractual and high-risk decisions.</p>
+          <p class="microcopy">TraceConnect is developed by BUILDTRACE for practical project workflows. Human review remains central for contractual and high-risk decisions.</p>
         </div>
 
-        <div class="hero-visual" aria-label="BUILDTRACE dashboard concept">
+        <div class="hero-visual" aria-label="TraceConnect dashboard concept">
           <div class="hero-orbit"></div>
           <div class="dashboard">
             <div class="dash-head">
@@ -826,7 +857,7 @@
     <section id="problem">
       <div class="container">
         <div class="section-head">
-          <div class="eyebrow">Why BUILDTRACE</div>
+          <div class="eyebrow">Why TraceConnect</div>
           <h2>Project information exists.<br>The connection between it often does not.</h2>
           <p>Construction teams still spend significant effort navigating disconnected records, unclear revisions and fragmented conversations.</p>
         </div>
@@ -856,7 +887,7 @@
         <div class="section-head">
           <div class="eyebrow">How it works</div>
           <h2>From document upload to traceable project knowledge.</h2>
-          <p>BUILDTRACE keeps the workflow construction-focused while document processing and AI stay in the background.</p>
+          <p>TraceConnect keeps the workflow construction-focused while document processing and AI stay in the background.</p>
         </div>
 
         <div class="workflow">
@@ -920,8 +951,8 @@
           </article>
           <article class="card cap-card">
             <div class="cap-icon">AI</div>
-            <h3>BUILDTRACE Assistant</h3>
-            <p>Ask project questions and receive AI-assisted answers designed to link back to the relevant source material.</p>
+            <h3>TraceConnect Assistant</h3>
+            <p>Ask project questions through TraceConnect Assistant and receive AI-assisted answers designed to link back to the relevant source material.</p>
           </article>
         </div>
       </div>
@@ -932,10 +963,10 @@
         <div class="section-head">
           <div class="eyebrow">Traceability by design</div>
           <h2>Follow the path from project record to project responsibility.</h2>
-          <p>BUILDTRACE is organised around the relationships construction teams actually need to recover when an issue becomes important.</p>
+          <p>TraceConnect is organised around the relationships construction teams actually need to recover when an issue becomes important.</p>
         </div>
 
-        <div class="trace-chain" aria-label="BUILDTRACE information architecture">
+        <div class="trace-chain" aria-label="TraceConnect information architecture">
           <div class="trace-node">PROJECT</div>
           <div class="trace-node">DOCUMENT</div>
           <div class="trace-node">ISSUE</div>
@@ -954,7 +985,7 @@
         <div>
           <div class="eyebrow">Built around project roles</div>
           <h2>One project record. Different operational views.</h2>
-          <p class="muted">BUILDTRACE is intended for busy construction professionals who need clarity without learning a technical document-management system.</p>
+          <p class="muted">TraceConnect is intended for busy construction professionals who need clarity without learning a technical document-management system.</p>
         </div>
 
         <div class="role-list">
@@ -992,7 +1023,7 @@
           <div>
             <div class="eyebrow">Evidence before assertion</div>
             <h2 style="font-size:clamp(2rem,3.8vw,3.5rem);">AI answers should show where the answer came from.</h2>
-            <p class="muted">For high-risk or contractual decisions, BUILDTRACE is designed to support human review rather than replace professional judgement.</p>
+            <p class="muted">For high-risk or contractual decisions, TraceConnect is designed to support human review rather than replace professional judgement.</p>
           </div>
           <div class="evidence-list">
             <div class="evidence-item"><b></b> Document and revision reference</div>
@@ -1008,11 +1039,11 @@
     <section id="pilot">
       <div class="container">
         <div class="pilot-card">
-          <div class="eyebrow">Pilot BUILDTRACE</div>
-          <h2>Test document traceability on a real construction workflow.</h2>
-          <p>We are focusing early validation on teams managing high document volumes, fragmented project records and limited document-control capacity.</p>
+          <div class="eyebrow">Pilot TraceConnect</div>
+          <h2>Test TraceConnect on a real construction workflow.</h2>
+          <p>We are focusing early TraceConnect validation on teams managing high document volumes, fragmented project records and limited document-control capacity.</p>
           <a class="btn btn-primary" href="https://github.com/BuildTrace-Labs" target="_blank" rel="noopener">Request a Pilot <span aria-hidden="true">→</span></a>
-          <p class="microcopy" style="margin-bottom:0;">Pilot contact can be switched to your preferred business email or enquiry form when ready.</p>
+          <p class="microcopy" style="margin-bottom:0;">TraceConnect is developed by BUILDTRACE. Pilot contact can be switched to your preferred business email or enquiry form when ready.</p>
         </div>
       </div>
     </section>
@@ -1020,7 +1051,7 @@
 
   <footer>
     <div class="container footer-inner">
-      <div><span class="footer-brand">BUILDTRACE</span> · Connect Documents. Trace Decisions. Resolve Issues.</div>
+      <div><span class="footer-brand">TraceConnect</span> · Connect Documents. Trace Decisions. Resolve Issues. <span class="muted">Developed by BUILDTRACE.</span></div>
       <div>© <span id="year"></span> BUILDTRACE</div>
     </div>
   </footer>
