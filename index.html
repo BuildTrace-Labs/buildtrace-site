@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#091423" />
+  <meta name="description" content="BUILDTRACE connects construction documents, issues, actions, decisions and evidence in one traceable workflow." />
+  <meta property="og:title" content="BUILDTRACE — Connect Documents. Trace Decisions. Resolve Issues." />
+  <meta property="og:description" content="Construction document intelligence and issue traceability for project teams." />
+  <meta property="og:type" content="website" />
+  <title>BUILDTRACE — Construction Document Intelligence</title>
+
+  <style>
+    :root {
+      --ink: #07111d;
+      --navy-950: #091423;
+      --navy-900: #0d1b2c;
+      --navy-800: #13263c;
+      --navy-700: #203245;
+      --blue: #4676b8;
+      --blue-soft: #6e95c8;
+      --sand: #e4b388;
+      --sand-light: #f0cfad;
+      --paper: #f8f5ee;
+      --paper-2: #eee9df;
+      --muted: #98a7b8;
+      --line: rgba(248,245,238,.12);
+      --shadow: 0 24px 80px rgba(0,0,0,.26);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--paper);
+      background:
+        radial-gradient(circle at 80% 4%, rgba(70,118,184,.16), transparent 25rem),
+        radial-gradient(circle at 8% 20%, rgba(228,179,136,.07), transparent 22rem),
+        var(--navy-950);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 9px;
+      align-items: center;
+      margin: 0 0 16px;
+      color: var(--sand-light);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--sand);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { line-height: 1.08; letter-spacing: -.035em; }
+
+    h1 {
+      max-width: 790px;
+      margin-bottom: 24px;
+      font-size: clamp(3.25rem, 7vw, 6.6rem);
+      font-weight: 760;
+    }
+
+    h2 {
+      margin-bottom: 18px;
+      font-size: clamp(2.1rem, 4.2vw, 4rem);
+      font-weight: 720;
+    }
+
+    h3 { font-size: 1.15rem; }
+
+    .text-gradient {
+      background: linear-gradient(110deg, var(--paper) 5%, var(--sand-light) 46%, var(--sand) 82%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .muted { color: var(--muted); }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid transparent;
+      background: rgba(7,17,29,.72);
+      backdrop-filter: blur(18px);
+      transition: border-color .2s ease, background .2s ease;
+    }
+
+    nav.scrolled {
+      border-color: var(--line);
+      background: rgba(7,17,29,.91);
+    }
+
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      flex: 0 0 auto;
+    }
+
+    .brand span:last-child { color: var(--sand); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: #c8d1dc;
+      font-size: .92rem;
+      font-weight: 650;
+    }
+
+    .nav-links a:hover { color: var(--paper); }
+
+    .nav-cta,
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-weight: 780;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .nav-cta {
+      padding: 11px 18px;
+      color: var(--ink);
+      background: var(--sand);
+    }
+
+    .nav-cta:hover,
+    .btn-primary:hover { transform: translateY(-2px); background: var(--sand-light); }
+
+    .menu-btn {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--paper);
+      background: transparent;
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: calc(100vh - 76px);
+      display: grid;
+      align-items: center;
+      padding: 90px 0 70px;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(380px, .88fr);
+      gap: 70px;
+      align-items: center;
+    }
+
+    .hero-copy p {
+      max-width: 680px;
+      color: #b6c2cf;
+      font-size: clamp(1.05rem, 1.7vw, 1.28rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .btn { min-height: 52px; padding: 0 22px; }
+    .btn-primary { color: var(--ink); background: var(--sand); }
+
+    .btn-secondary {
+      border-color: var(--line);
+      color: var(--paper);
+      background: rgba(248,245,238,.04);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      border-color: rgba(228,179,136,.5);
+      background: rgba(248,245,238,.07);
+    }
+
+    .microcopy {
+      margin-top: 18px;
+      color: #7f90a2 !important;
+      font-size: .86rem !important;
+    }
+
+    .hero-visual { position: relative; }
+
+    .hero-orbit {
+      position: absolute;
+      inset: -16%;
+      z-index: -1;
+      border: 1px solid rgba(110,149,200,.12);
+      border-radius: 50%;
+    }
+
+    .dashboard {
+      overflow: hidden;
+      border: 1px solid rgba(248,245,238,.12);
+      border-radius: 28px;
+      background: linear-gradient(160deg, rgba(32,50,69,.84), rgba(9,20,35,.97));
+      box-shadow: var(--shadow);
+      transform: perspective(900px) rotateY(-5deg) rotateX(2deg);
+    }
+
+    .dash-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .window-dots { display: flex; gap: 6px; }
+    .window-dots i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(248,245,238,.28);
+    }
+
+    .dash-body { display: grid; grid-template-columns: 138px 1fr; min-height: 430px; }
+
+    .dash-side {
+      padding: 18px 13px;
+      border-right: 1px solid var(--line);
+      color: #91a0af;
+      font-size: .72rem;
+    }
+
+    .side-item {
+      margin-bottom: 8px;
+      padding: 9px 10px;
+      border-radius: 8px;
+    }
+
+    .side-item.active {
+      color: var(--paper);
+      background: rgba(228,179,136,.1);
+    }
+
+    .dash-main { padding: 20px; }
+
+    .project-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .project-title strong { font-size: .9rem; }
+
+    .status-pill {
+      padding: 5px 9px;
+      border: 1px solid rgba(228,179,136,.25);
+      border-radius: 999px;
+      color: var(--sand-light);
+      background: rgba(228,179,136,.08);
+      font-size: .6rem;
+      font-weight: 800;
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr .8fr;
+      gap: 12px;
+    }
+
+    .panel {
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: rgba(7,17,29,.4);
+    }
+
+    .panel h4 {
+      margin: 0 0 12px;
+      color: #dbe3eb;
+      font-size: .68rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .instruction {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(248,245,238,.07);
+    }
+
+    .instruction:last-child { margin: 0; padding: 0; border: 0; }
+    .instruction strong { display: block; font-size: .72rem; }
+    .instruction span { color: #7f90a2; font-size: .62rem; }
+
+    .issue-count {
+      margin: 2px 0 10px;
+      color: var(--sand-light);
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .trace-card {
+      grid-column: 1 / -1;
+      margin-top: 2px;
+    }
+
+    .trace-line-mini {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      align-items: center;
+      gap: 4px;
+    }
+
+    .trace-node-mini {
+      padding: 9px 5px;
+      border: 1px solid rgba(110,149,200,.16);
+      border-radius: 10px;
+      color: #9eb3c9;
+      background: rgba(70,118,184,.07);
+      text-align: center;
+      font-size: .56rem;
+      font-weight: 760;
+    }
+
+    .strip {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(248,245,238,.025);
+    }
+
+    .strip-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .strip-item {
+      padding: 22px 20px;
+      border-right: 1px solid var(--line);
+    }
+
+    .strip-item:last-child { border-right: 0; }
+    .strip-item strong { display: block; margin-bottom: 2px; color: var(--paper); }
+    .strip-item span { color: #7f90a2; font-size: .83rem; }
+
+    section { padding: 120px 0; }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 56px;
+    }
+
+    .section-head p {
+      max-width: 670px;
+      color: #9cacbd;
+      font-size: 1.08rem;
+    }
+
+    .problem-grid,
+    .cap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(155deg, rgba(32,50,69,.5), rgba(9,20,35,.65));
+    }
+
+    .card-num {
+      display: inline-flex;
+      width: 34px;
+      height: 34px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+      border: 1px solid rgba(228,179,136,.25);
+      border-radius: 50%;
+      color: var(--sand);
+      font-size: .72rem;
+      font-weight: 800;
+    }
+
+    .card p {
+      margin: 0;
+      color: #93a4b5;
+      font-size: .92rem;
+    }
+
+    .workflow {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .workflow::before {
+      content: "";
+      position: absolute;
+      top: 25px;
+      left: 7%;
+      right: 7%;
+      z-index: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(228,179,136,.42), transparent);
+    }
+
+    .step { position: relative; z-index: 1; }
+
+    .step-index {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 22px;
+      border: 1px solid rgba(228,179,136,.28);
+      border-radius: 50%;
+      color: var(--ink);
+      background: var(--sand);
+      font-weight: 850;
+    }
+
+    .step p { color: #899bad; font-size: .9rem; }
+
+    .cap-card {
+      min-height: 245px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cap-card::after {
+      content: "";
+      position: absolute;
+      right: -50px;
+      bottom: -70px;
+      width: 150px;
+      height: 150px;
+      border: 1px solid rgba(110,149,200,.08);
+      border-radius: 50%;
+    }
+
+    .cap-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 34px;
+      border-radius: 13px;
+      color: var(--sand-light);
+      background: rgba(228,179,136,.08);
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    .trace-section {
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(248,245,238,.025), rgba(248,245,238,.025)),
+        radial-gradient(circle at 50% 50%, rgba(70,118,184,.12), transparent 35rem);
+    }
+
+    .trace-chain {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      align-items: center;
+      gap: 7px;
+      margin-top: 52px;
+    }
+
+    .trace-node {
+      min-height: 108px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 7px;
+      border: 1px solid rgba(248,245,238,.12);
+      border-radius: 16px;
+      color: #ced7e0;
+      background: rgba(9,20,35,.76);
+      text-align: center;
+      font-size: .72rem;
+      font-weight: 800;
+    }
+
+    .trace-node:nth-child(2n) {
+      border-color: rgba(228,179,136,.24);
+      color: var(--sand-light);
+    }
+
+    .roles {
+      display: grid;
+      grid-template-columns: .78fr 1.22fr;
+      gap: 70px;
+      align-items: start;
+    }
+
+    .role-list { border-top: 1px solid var(--line); }
+
+    .role-row {
+      display: grid;
+      grid-template-columns: 55px 1fr;
+      gap: 15px;
+      padding: 19px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .role-row span {
+      color: var(--sand);
+      font-size: .72rem;
+      font-weight: 850;
+    }
+
+    .role-row strong { display: block; margin-bottom: 2px; }
+    .role-row p { margin: 0; color: #8798aa; font-size: .86rem; }
+
+    .trust-box {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 35px;
+      padding: 45px;
+      border: 1px solid rgba(228,179,136,.18);
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(228,179,136,.06), rgba(70,118,184,.06));
+    }
+
+    .evidence-list {
+      display: grid;
+      gap: 9px;
+    }
+
+    .evidence-item {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 13px 15px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(7,17,29,.42);
+      color: #bdc8d3;
+      font-size: .82rem;
+    }
+
+    .evidence-item b {
+      width: 7px;
+      height: 7px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--sand);
+    }
+
+    .pilot-card {
+      padding: clamp(38px, 7vw, 80px);
+      border: 1px solid rgba(228,179,136,.2);
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 90% 15%, rgba(228,179,136,.12), transparent 23rem),
+        linear-gradient(145deg, rgba(32,50,69,.65), rgba(7,17,29,.93));
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .pilot-card h2 { max-width: 850px; margin-left: auto; margin-right: auto; }
+    .pilot-card p { max-width: 680px; margin: 0 auto 30px; color: #9cabb9; }
+
+    footer {
+      padding: 34px 0 48px;
+      border-top: 1px solid var(--line);
+      color: #778899;
+      font-size: .82rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .footer-brand { color: var(--paper); font-weight: 800; letter-spacing: .07em; }
+
+    @media (max-width: 980px) {
+      .nav-links { display: none; }
+      .menu-btn { display: grid; place-items: center; }
+
+      .nav-links.open {
+        position: absolute;
+        top: 76px;
+        left: 20px;
+        right: 20px;
+        display: grid;
+        gap: 0;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(7,17,29,.98);
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.open a { padding: 13px 12px; }
+      .nav-links.open .nav-cta { margin-top: 6px; }
+
+      .hero { min-height: auto; }
+      .hero-grid,
+      .roles,
+      .trust-box { grid-template-columns: 1fr; }
+
+      .hero-grid { gap: 55px; }
+      .hero-visual { max-width: 650px; }
+      .dashboard { transform: none; }
+
+      .problem-grid,
+      .cap-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .workflow { grid-template-columns: repeat(2, 1fr); gap: 40px 30px; }
+      .workflow::before { display: none; }
+
+      .trace-chain { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 680px) {
+      .container { width: min(calc(100% - 28px), var(--max)); }
+      nav .brand { font-size: .88rem; }
+      .hero { padding-top: 64px; }
+      h1 { font-size: clamp(3rem, 16vw, 4.8rem); }
+      section { padding: 90px 0; }
+
+      .strip-grid { grid-template-columns: repeat(2, 1fr); }
+      .strip-item:nth-child(2) { border-right: 0; }
+      .strip-item:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+
+      .problem-grid,
+      .cap-grid,
+      .workflow { grid-template-columns: 1fr; }
+
+      .dash-body { grid-template-columns: 95px 1fr; }
+      .dash-side { padding: 15px 8px; }
+      .dash-main { padding: 14px; }
+      .dash-grid { grid-template-columns: 1fr; }
+      .trace-card { grid-column: auto; }
+      .trace-line-mini { grid-template-columns: repeat(3, 1fr); }
+      .trace-node-mini:nth-child(n+4) { display: none; }
+
+      .trace-chain { grid-template-columns: repeat(2, 1fr); }
+      .trace-node { min-height: 86px; }
+
+      .trust-box { padding: 28px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav id="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="BUILDTRACE home">
+        <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M10 18 32 6l22 12v28L32 58 10 46Z" fill="none" stroke="#E4B388" stroke-width="4"/>
+          <path d="M18 20v25h12c8 0 13-4 13-10 0-4-2-7-6-8 3-1 5-4 5-7 0-6-5-9-12-9H18Z" fill="none" stroke="#F8F5EE" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M39 18h14M46 18v28" fill="none" stroke="#4676B8" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <span>BUILD</span><span>TRACE</span>
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#problem">Why BUILDTRACE</a>
+        <a href="#workflow">How it works</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#traceability">Traceability</a>
+        <a class="nav-cta" href="#pilot">Request a Pilot</a>
+      </div>
+
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Construction document intelligence</div>
+          <h1>Connect documents.<br><span class="text-gradient">Trace decisions.</span><br>Resolve issues.</h1>
+          <p>
+            BUILDTRACE helps construction teams organise project records, find the latest information,
+            connect documents to issues and actions, and retrieve supporting evidence without digging
+            through scattered PDFs, emails and folders.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#pilot">Request a Pilot <span aria-hidden="true">→</span></a>
+            <a class="btn btn-secondary" href="#workflow">See how it works</a>
+          </div>
+
+          <p class="microcopy">Built for practical project workflows. Human review remains central for contractual and high-risk decisions.</p>
+        </div>
+
+        <div class="hero-visual" aria-label="BUILDTRACE dashboard concept">
+          <div class="hero-orbit"></div>
+          <div class="dashboard">
+            <div class="dash-head">
+              <div class="window-dots"><i></i><i></i><i></i></div>
+              <span class="muted" style="font-size:.65rem;">PROJECT OVERVIEW</span>
+            </div>
+            <div class="dash-body">
+              <aside class="dash-side">
+                <div class="side-item active">Overview</div>
+                <div class="side-item">Documents</div>
+                <div class="side-item">Instructions</div>
+                <div class="side-item">Issues</div>
+                <div class="side-item">Evidence</div>
+              </aside>
+              <div class="dash-main">
+                <div class="project-title">
+                  <strong>Project Northstar</strong>
+                  <span class="status-pill">LIVE TRACE</span>
+                </div>
+                <div class="dash-grid">
+                  <div class="panel">
+                    <h4>Latest instructions</h4>
+                    <div class="instruction">
+                      <strong>SI-042 — Ceiling coordination</strong>
+                      <span>Owner: Site Team · Due 18 Aug</span>
+                    </div>
+                    <div class="instruction">
+                      <strong>RFI-118 — Plantroom access</strong>
+                      <span>Awaiting consultant response</span>
+                    </div>
+                    <div class="instruction">
+                      <strong>DWG-A-204 Rev C</strong>
+                      <span>Latest approved revision</span>
+                    </div>
+                  </div>
+                  <div class="panel">
+                    <h4>Open actions</h4>
+                    <div class="issue-count">07</div>
+                    <div class="muted" style="font-size:.66rem;">2 overdue · 3 due this week</div>
+                  </div>
+                  <div class="panel trace-card">
+                    <h4>Evidence path</h4>
+                    <div class="trace-line-mini">
+                      <div class="trace-node-mini">DRAWING</div>
+                      <div class="trace-node-mini">ISSUE</div>
+                      <div class="trace-node-mini">ACTION</div>
+                      <div class="trace-node-mini">DECISION</div>
+                      <div class="trace-node-mini">EVIDENCE</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="strip">
+      <div class="container strip-grid">
+        <div class="strip-item"><strong>Documents</strong><span>Drawings, RFIs, instructions, reports and correspondence</span></div>
+        <div class="strip-item"><strong>Issues</strong><span>Connect project problems to the records that explain them</span></div>
+        <div class="strip-item"><strong>Actions</strong><span>Make ownership, due dates and open items visible</span></div>
+        <div class="strip-item"><strong>Evidence</strong><span>Trace decisions back to the supporting source</span></div>
+      </div>
+    </div>
+
+    <section id="problem">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Why BUILDTRACE</div>
+          <h2>Project information exists.<br>The connection between it often does not.</h2>
+          <p>Construction teams still spend significant effort navigating disconnected records, unclear revisions and fragmented conversations.</p>
+        </div>
+
+        <div class="problem-grid">
+          <article class="card">
+            <span class="card-num">01</span>
+            <h3>Latest information is hard to confirm</h3>
+            <p>Drawings, instructions and approvals may exist across folders, inboxes and message threads with no simple project-wide view.</p>
+          </article>
+          <article class="card">
+            <span class="card-num">02</span>
+            <h3>Actions lose their context</h3>
+            <p>Teams can see that something is outstanding without immediately seeing the document, discussion or decision that created it.</p>
+          </article>
+          <article class="card">
+            <span class="card-num">03</span>
+            <h3>Evidence takes too long to reconstruct</h3>
+            <p>Variation, claim, dispute and handover records often require manual reconstruction from many separate project sources.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow" style="background:rgba(248,245,238,.018); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">How it works</div>
+          <h2>From document upload to traceable project knowledge.</h2>
+          <p>BUILDTRACE keeps the workflow construction-focused while document processing and AI stay in the background.</p>
+        </div>
+
+        <div class="workflow">
+          <div class="step">
+            <div class="step-index">1</div>
+            <h3>Bring in the record</h3>
+            <p>Upload drawings, RFIs, instructions, reports, correspondence and other project documents.</p>
+          </div>
+          <div class="step">
+            <div class="step-index">2</div>
+            <h3>Understand what it is</h3>
+            <p>Extract useful text and metadata, identify document type, date, revision, discipline and status.</p>
+          </div>
+          <div class="step">
+            <div class="step-index">3</div>
+            <h3>Connect the context</h3>
+            <p>Link documents with issues, discussions, actions, owners, deadlines and decisions.</p>
+          </div>
+          <div class="step">
+            <div class="step-index">4</div>
+            <h3>Retrieve the evidence</h3>
+            <p>Search or ask project questions and follow the answer back to its supporting record.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="capabilities">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Core capabilities</div>
+          <h2>A practical operating layer for project information.</h2>
+          <p>Essentials first: what happened, what needs action, who owns it, when it is due and where the evidence is.</p>
+        </div>
+
+        <div class="cap-grid">
+          <article class="card cap-card">
+            <div class="cap-icon">DH</div>
+            <h3>Document Hub</h3>
+            <p>Organise construction records with useful metadata, document status and revision relationships.</p>
+          </article>
+          <article class="card cap-card">
+            <div class="cap-icon">SS</div>
+            <h3>Smart Search</h3>
+            <p>Find information through keyword and meaning-based retrieval across project records.</p>
+          </article>
+          <article class="card cap-card">
+            <div class="cap-icon">IA</div>
+            <h3>Issue & Action Tracker</h3>
+            <p>Connect open issues to documents, owners, due dates, discussions and current status.</p>
+          </article>
+          <article class="card cap-card">
+            <div class="cap-icon">LI</div>
+            <h3>Latest Instructions</h3>
+            <p>Surface recent instructions and warnings so teams can focus on what changed and what needs attention.</p>
+          </article>
+          <article class="card cap-card">
+            <div class="cap-icon">ET</div>
+            <h3>Evidence Timeline</h3>
+            <p>Preserve a chronological record of instructions, responses, actions, decisions and supporting evidence.</p>
+          </article>
+          <article class="card cap-card">
+            <div class="cap-icon">AI</div>
+            <h3>BUILDTRACE Assistant</h3>
+            <p>Ask project questions and receive AI-assisted answers designed to link back to the relevant source material.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="trace-section" id="traceability">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Traceability by design</div>
+          <h2>Follow the path from project record to project responsibility.</h2>
+          <p>BUILDTRACE is organised around the relationships construction teams actually need to recover when an issue becomes important.</p>
+        </div>
+
+        <div class="trace-chain" aria-label="BUILDTRACE information architecture">
+          <div class="trace-node">PROJECT</div>
+          <div class="trace-node">DOCUMENT</div>
+          <div class="trace-node">ISSUE</div>
+          <div class="trace-node">ACTION</div>
+          <div class="trace-node">DISCUSSION</div>
+          <div class="trace-node">DECISION</div>
+          <div class="trace-node">EVIDENCE</div>
+          <div class="trace-node">OWNER</div>
+          <div class="trace-node">DUE DATE</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="users">
+      <div class="container roles">
+        <div>
+          <div class="eyebrow">Built around project roles</div>
+          <h2>One project record. Different operational views.</h2>
+          <p class="muted">BUILDTRACE is intended for busy construction professionals who need clarity without learning a technical document-management system.</p>
+        </div>
+
+        <div class="role-list">
+          <div class="role-row">
+            <span>01</span>
+            <div><strong>Project Managers</strong><p>Status, priority issues, overdue actions, owners, instructions and decision history.</p></div>
+          </div>
+          <div class="role-row">
+            <span>02</span>
+            <div><strong>Site Supervisors</strong><p>Latest approved information, urgent instructions, drawings and simple actions.</p></div>
+          </div>
+          <div class="role-row">
+            <span>03</span>
+            <div><strong>Quantity Surveyors</strong><p>Variation evidence, instruction history, revisions, scope change and correspondence.</p></div>
+          </div>
+          <div class="role-row">
+            <span>04</span>
+            <div><strong>Engineers & Consultants</strong><p>RFIs, submissions, approvals, revisions and issue-linked discussions.</p></div>
+          </div>
+          <div class="role-row">
+            <span>05</span>
+            <div><strong>Contract Administrators</strong><p>Correspondence, notices, timelines, instructions, responsibility and evidence.</p></div>
+          </div>
+          <div class="role-row">
+            <span>06</span>
+            <div><strong>Document Controllers</strong><p>Metadata, revisions, distribution status and an auditable record of changes.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:0;">
+      <div class="container">
+        <div class="trust-box">
+          <div>
+            <div class="eyebrow">Evidence before assertion</div>
+            <h2 style="font-size:clamp(2rem,3.8vw,3.5rem);">AI answers should show where the answer came from.</h2>
+            <p class="muted">For high-risk or contractual decisions, BUILDTRACE is designed to support human review rather than replace professional judgement.</p>
+          </div>
+          <div class="evidence-list">
+            <div class="evidence-item"><b></b> Document and revision reference</div>
+            <div class="evidence-item"><b></b> Page, section or message context</div>
+            <div class="evidence-item"><b></b> Related issue and discussion</div>
+            <div class="evidence-item"><b></b> Owner, due date and current status</div>
+            <div class="evidence-item"><b></b> Decision and evidence history</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pilot">
+      <div class="container">
+        <div class="pilot-card">
+          <div class="eyebrow">Pilot BUILDTRACE</div>
+          <h2>Test document traceability on a real construction workflow.</h2>
+          <p>We are focusing early validation on teams managing high document volumes, fragmented project records and limited document-control capacity.</p>
+          <a class="btn btn-primary" href="https://github.com/BuildTrace-Labs" target="_blank" rel="noopener">Request a Pilot <span aria-hidden="true">→</span></a>
+          <p class="microcopy" style="margin-bottom:0;">Pilot contact can be switched to your preferred business email or enquiry form when ready.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div><span class="footer-brand">BUILDTRACE</span> · Connect Documents. Trace Decisions. Resolve Issues.</div>
+      <div>© <span id="year"></span> BUILDTRACE</div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 12);
+    });
+
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.textContent = open ? '×' : '☰';
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.textContent = '☰';
+      });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
